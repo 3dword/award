@@ -1,0 +1,19 @@
+[award]
+startTime="2019-06-18 00:00:00"
+endTime="2019-06-18 23:59:59"
+
+
+[awardMap]
+A=20
+B=200
+C=500
+
+[mysql]
+database="award"
+username="diuge"
+password="123456"
+
+[redis]
+network="tcp"
+ip="127.0.0.1"
+port=6379

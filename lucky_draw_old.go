@@ -1,5 +1,11 @@
 package main
 
+
+/**
+	废弃版本，仅用于演示思路二
+
+	通过 toml 配置文件来实现 mysql 效果
+
 import (
 	"errors"
 	"fmt"
@@ -10,7 +16,7 @@ import (
 var awardBatches []AwardBatch
 
 
-func GetAward(awardBatches []AwardBatch) (AwardBatch, error) {
+func GetAllAward(awardBatches []AwardBatch) (AwardBatch, error) {
 
 	startTime , _ := ParseStringToTime(conf.Award.StartTime)
 	endTime , _ := ParseStringToTime(conf.Award.EndTime)
@@ -31,9 +37,9 @@ func GetAward(awardBatches []AwardBatch) (AwardBatch, error) {
 	detaTime := (endTime - startTime) / totalAmount
 	currentTime := time.Now().Unix()
 
-	r := rand.New(rand.NewSource(updateTime))
+	random := rand.New(rand.NewSource(updateTime))
 	// 计算下一个奖品的释放时间
-	releaseTime := startTime + (totalAmount - totalBalance) * detaTime +  int64(r.Int()) % detaTime
+	releaseTime := startTime + (totalAmount - totalBalance) * detaTime +  int64(random.Int()) % detaTime
 
 	fmt.Println("releaseTime : " + fmt.Sprintf("%d", releaseTime) + " currentTime : " + fmt.Sprintf("%d",currentTime))
 
@@ -51,19 +57,19 @@ func RandomGetAwardBatch(awardBatches []AwardBatch) ( AwardBatch , error ) {
 		return AwardBatch{} , errors.New("empty param awardBatches")
 	}
 
-	weight := int64(0)
+	totalBalance := int64(0)
 
 	for _, awardBatch := range awardBatches {
-		weight += awardBatch.GetTotalBalance()
+		totalBalance += awardBatch.GetTotalBalance()
 	}
 
-	if weight == 0 {
+	if totalBalance == 0 {
 		return AwardBatch{}, errors.New("weight is 0")
 	}
 
-	r := rand.New(rand.NewSource(weight))
+	r := rand.New(rand.NewSource(totalBalance))
 
-	num := r.Int63n(weight)
+	num := r.Int63n(totalBalance)
 
 	for _, awardBatch := range awardBatches {
 		num -= awardBatch.GetTotalBalance()
@@ -98,3 +104,5 @@ func InitAwardPool() []AwardBatch {
 
 	return awardBatches
 }
+
+ */
